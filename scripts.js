@@ -77,11 +77,9 @@ const generateGallery = users => {
 const generateModals = users => {
     let modalContainer = document.createElement('div');
     modalContainer.className = 'modal-container';
-    // modalContainer.style = 'display:none;';
+    modalContainer.style = 'display:none;';
 
     users.results.map(person => {
-        console.log(person);
-
         const date = person.dob.date.toString();
         const months = [
             'January',
@@ -107,7 +105,7 @@ const generateModals = users => {
                     <button type="button" id="modal-close-btn" class="modal-close-btn"><strong>X</strong></button>
                     <div class="modal-info-container">
                         <img class="modal-img" src="${person.picture.large}" alt="${person.name.first} ${person.name.last}">
-                        <h3 id="${person.name.first}-${person.name.last}" class="modal-name cap">${person.name.first} ${person.name.last}</h3>
+                        <h3 id="${person.name.first}-${person.name.last}-modal" class="modal-name cap">${person.name.first} ${person.name.last}</h3>
                         <p class="modal-text">${person.email}</p>
                         <p class="modal-text cap">${person.location.city}</p>
                         <hr>
@@ -115,8 +113,25 @@ const generateModals = users => {
                         <p class="modal-text">${person.location.street.number} ${person.location.street.name}<br>${person.location.city}, ${person.location.state} ${person.location.postcode}</p>
                         <p class="modal-text">Birthday: ${month} ${day}, ${year}</p>
                     </div>
+                    <div class="modal-btn-container">
+                    <button type="button" id="modal-prev" class="modal-prev btn">Prev</button>
+                    <button type="button" id="modal-next" class="modal-next btn">Next</button>
+                    </div>
                 </div>
             `;
         gallery.parentNode.insertBefore(modalContainer, gallery.nextElementSibling);
     });
 };
+
+// ------------------------------------------
+//  Listener FUNCTIONS
+// ------------------------------------------
+gallery.addEventListener('click', e => {
+    const cardModals = document.querySelectorAll('.card');
+
+    cardModals.forEach(modal => {
+        if (e.target === modal) {
+            console.log('clicked');
+        }
+    });
+});
