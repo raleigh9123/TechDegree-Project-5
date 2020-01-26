@@ -1,7 +1,7 @@
 /* JS Scripts for TechDegree Project 5 */
 
 // ------------------------------------------
-// GENERATE FORM INPUTS
+// GENERATE FORM INPUT
 // ------------------------------------------
 
 // Add Search Inputs to HTML
@@ -32,12 +32,16 @@
 })();
 
 // ------------------------------------------
-//  FETCH FUNCTIONs
+//  FETCH FUNCTION
 // ------------------------------------------
 
 /*
- * Send a single request to the The Random User Generator API
- * Use the response data to display 12 users
+ * Send a single request to the The Random User Generator API and chain methods:
+ * 1. Resolve JSON Data
+ * 2. Provide Error Logging
+ * 3. Generate HTML from JSON Data
+ * 4. Add Event Listeners/Enable User Interaction
+ *
  */
 const randomUserURL = 'https://randomuser.me/api/';
 const numUsers = 12;
@@ -45,6 +49,11 @@ const nationality = 'US';
 
 fetch(`${randomUserURL}?results=${numUsers}&nat=${nationality}`)
     .then(res => res.json())
+    .catch(error => {
+        document.querySelector('.gallery').innerHTML =
+            '<h3>There was an error processing your request. Please refresh the page.</h3>';
+        console.log(error);
+    })
     .then(users => {
         generateGallery(users);
         generateModals(users);
@@ -54,11 +63,12 @@ fetch(`${randomUserURL}?results=${numUsers}&nat=${nationality}`)
     });
 
 // ------------------------------------------
-//  GENERATE HTML HELPER FUNCTIONS
+//  HELPER FUNCTIONS - GENERATE HTML
 // ------------------------------------------
 
 const gallery = document.querySelector('.gallery');
 
+// Generate a user card in HTML for each user provided by API
 const generateGallery = users => {
     users.results.map(person => {
         const cardHTML = `
@@ -78,6 +88,7 @@ const generateGallery = users => {
     });
 };
 
+// Generate Modal popup for each user card using same Random User API data
 const generateModals = users => {
     const modalContainer = document.createElement('div');
     modalContainer.classList.add('modal-container', '_hidden');
@@ -126,14 +137,15 @@ const generateModals = users => {
                     </div>
                 </div>
             `;
-        gallery.parentNode.insertBefore(modalContainer, gallery.nextSibling);
     });
+    gallery.parentNode.insertBefore(modalContainer, gallery.nextSibling);
 };
 
 // ------------------------------------------
-//  EVENT LISTENERS
+//  HELPER FUNCTIONS - EVENT LISTENERS
 // ------------------------------------------
 
+//
 const createEventListeners = () => {
     let index;
 
