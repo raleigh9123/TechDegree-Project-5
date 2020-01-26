@@ -16,7 +16,7 @@ html, body {
 body {
     font-family: "Nunito", sans-serif;
     text-align: center;
-    background: rgba(235, 235, 235, 0.9);
+    background: lightgray;
 }
 
 header {
@@ -230,6 +230,17 @@ div._top-modal {
   }
   button.modal-close-btn > * {
       pointer-events:none;
+  }
+
+  /* JS Search Highlights */
+  .highlight {
+      transform:scale(1.05);
+      border-color:lightskyblue;
+      box-shadow:3px 2px 10px 3px darkgrey;
+  }
+  .darken {
+    background: #C0C0C0;
+    opacity: .5;
   }
 
 /* ===================================== 

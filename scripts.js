@@ -32,7 +32,7 @@
 })();
 
 // ------------------------------------------
-//  FETCH FUNCTIONS
+//  FETCH FUNCTIONs
 // ------------------------------------------
 
 /*
@@ -50,11 +50,11 @@ fetch(`${randomUserURL}?results=${numUsers}&nat=${nationality}`)
         generateModals(users);
     })
     .finally(() => {
-        setListenerQueries();
+        createEventListeners();
     });
 
 // ------------------------------------------
-//  HELPER FUNCTIONS
+//  GENERATE HTML HELPER FUNCTIONS
 // ------------------------------------------
 
 const gallery = document.querySelector('.gallery');
@@ -131,50 +131,55 @@ const generateModals = users => {
 };
 
 // ------------------------------------------
-//  Listener FUNCTIONS
+//  EVENT LISTENERS
 // ------------------------------------------
 
-const setListenerQueries = () => {
+const createEventListeners = () => {
     let index;
 
-    const cards = Array.from(document.querySelectorAll('.card'));
-    const modals = Array.from(document.querySelectorAll('.modal'));
-    const modalDiv = document.querySelector('.modal-container');
+    // Modal Popup Selectors
+    const cards = document.querySelectorAll('.card');
+    const modals = document.querySelectorAll('.modal');
+    const modalContainer = document.querySelector('.modal-container');
 
-    // Open clicked card
-    gallery.addEventListener('click', e => {
-        if (e.target.className === 'card') {
-            for (i = 0; i < cards.length; i++) {
-                if (e.target === cards[i]) {
-                    index = i;
-                }
-            }
-            modalDiv.classList.remove('_hidden');
-            modals[index].classList.remove('_hidden');
-            showModal();
-        }
-    });
-
+    // Modal button Selectors
     const closeBtn = document.querySelectorAll('.modal-close-btn');
     const nextBtn = document.querySelectorAll('#modal-next');
     const prevBtn = document.querySelectorAll('#modal-prev');
+
+    // Helper Functions
     function showModal() {
         modals[index].classList.add('_top-modal');
     }
     function hideModal() {
         modals[index].classList.remove('_top-modal');
     }
-    modalDiv.addEventListener('click', e => {
+
+    // Open clicked card
+    gallery.addEventListener('click', e => {
+        if (e.target.classList.contains('card')) {
+            for (i = 0; i < cards.length; i++) {
+                if (e.target === cards[i]) {
+                    index = i;
+                }
+            }
+            modalContainer.classList.remove('_hidden');
+            modals[index].classList.remove('_hidden');
+            showModal();
+        }
+    });
+    // Next, Previous, and Close Btn's
+    modalContainer.addEventListener('click', e => {
         // Close Button
         modals.forEach(modal => {
-            if (e.target === modalDiv && e.target !== modal) {
-                modalDiv.classList.add('_hidden');
+            if (e.target === modalContainer && e.target !== modal) {
+                modalContainer.classList.add('_hidden');
                 hideModal();
             }
         });
         closeBtn.forEach(button => {
             if (e.target === button) {
-                modalDiv.classList.add('_hidden');
+                modalContainer.classList.add('_hidden');
                 hideModal();
             }
         });
@@ -203,5 +208,31 @@ const setListenerQueries = () => {
                 showModal();
             }
         });
+    });
+
+    const searchInput = document.getElementById('search-input');
+    const searchSubmit = document.getElementById('search-submit');
+
+    // Add "Search" to filter results on screen
+    searchSubmit.addEventListener('click', () => {
+        const userInput = searchInput.value;
+
+        for (i = 0; i < modals.length; i++) {
+            cards[i].className = 'card';
+        }
+
+        for (i = 0; i < modals.length; i++) {
+            const name = document.querySelectorAll('.card h3')[i].textContent.toLowerCase();
+
+            if (searchInput.value !== '') {
+                if (!name.includes(userInput)) {
+                    cards[i].classList.add('darken');
+                } else {
+                    cards[i].classList.add('highlight');
+                }
+            }
+        }
+
+        searchInput.value = '';
     });
 };
