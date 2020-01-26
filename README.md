@@ -15,7 +15,8 @@ Skills: HTTP Requests, Fetch API, JSON manipulation, DOM manipulation, Event Han
     2: modal popups with above user information as well as phone number, address, and birthdate. Modal popups include navigation buttons to cycle through users on page.
 -Event Listeners provide functionality to: 
     1. open modal popups using css display, opacity, and transition properties 
-    2. allow next/prev user navigation by compiling all users on-screen into arrays and using an index to cycle through users. 3. filter on-screen users by name via user search input. Since only 12 users exist on the page, input simply highlights positive results and dims negative matches, rather than removing or hiding card(s) from page. 
+    2. allow next/prev user navigation by compiling all users on-screen into arrays and using an index to cycle through users. Closing modal popup is allowed by clicking off of the popup. This is to improve the user experience
+    3. filter on-screen users by name via user search input. Since only 12 users exist on the page, input simply highlights positive results and dims negative matches, rather than removing or hiding card(s) from page. 
 -Change CSS to allow JS to utilize classes to show and hide modal popups, or to highlight/darken positive/negative filtered search matches
 
 --Project Attempt
