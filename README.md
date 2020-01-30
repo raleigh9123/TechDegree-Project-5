@@ -1,5 +1,5 @@
 # TechDegree-Project-5
- Project 5 - Object Oriented Programming: Game Show App
+ Project 5 - Public API Requests: User Directory
 
 --Description
 This project builds a randomly generated user directory that might be used to provide information about employees internally on a company website. The web page displays 12 randomly generated people on their own cards with some identifying details (each person is known within the random user API as 'users'). Users are then able to click on a person to open a modal popup. This popup includes more information about the person as well as buttons to cycle forward or backward from the page's list of persons. Lastly, the page includes a search function that filters cards listed on the page by name. This filter highlights any positive results.
