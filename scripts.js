@@ -227,7 +227,8 @@ const createEventListeners = () => {
 
     // Add "Search" to filter results on screen
     searchSubmit.addEventListener('click', () => {
-        const userInput = searchInput.value;
+        const rawInput = searchInput.value;
+        const userInput = rawInput.toLowerCase();
 
         for (i = 0; i < modals.length; i++) {
             cards[i].className = 'card';
